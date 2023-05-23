@@ -1,22 +1,29 @@
 <?php
     class User {
-        public $name = "Brad";
+        private $name;
+        private $age;
 
-        public function say_hello() {
-            return $this->name . " says Hello to everyone";
+        public function __construct($name, $age) {
+            $this->name = $name;
+            $this->age = $age;
+        }
+
+        public function set_name($name) {
+            $this->name = $name;
+        }
+        public function get_name() {
+            return $this->name;
+        }
+        // __get MAGIC method
+        public function __get($property) {
+            if(property_exists($this, $property)) {
+                return $this->$property;
+            }
         }
 
     }
 
-    $user1 = new User;
-    echo $user1->name . "<br />";
-    echo $user1->say_hello();
-
-    echo "<br />";
-
-    $user2 = new User;
-    $user2->name = "Traverse";
-    echo $user2->name;
-    echo "<br />";
-    echo $user2->say_hello()
+    $user1 = new User("John", 40);
+    echo $user1->set_name("Brad");
+    echo $user1->get_name();
 ?>
